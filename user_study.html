@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .analysis, .comparison, .highlight {
+            margin-bottom: 20px;
+        }
+        .audio-inline {
+            display: inline-block;
+            width: 100px;
+            vertical-align: middle;
+        }
+        .highlighted-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .word {
+            margin-right: 5px;
+            position: relative;
+            display: inline-block;
+        }
+        .word::after {
+            content: "•";
+            display: block;
+            font-size: 20px;
+            line-height: 0;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <p class="analysis">
+        <p>The model has predicted the clip as <strong>Angry</strong></p>
+        <audio class="audio-inline" controls></audio>
+    </p>
+    
+    <p class="comparison">
+        <p>It has compared it with the following audio:</p>
+        <span>
+            <select>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            <audio class="audio-inline" controls></audio>
+        </span>
+    </p>
+    
+    <div class="details">
+        <p>The voice has:</p>
+        <ul>
+            <li>Higher loudness</li>
+            <li>Lower pitch range</li>
+        </ul>
+    </div>
+    
+    <div class="highlight">
+        <p>During the highlighted moment below for:</p>
+        <select>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+        </select>
+    </div>
+    
+    <div class="highlighted-text">
+        <div class="word">I</div>
+        <div class="word">thought</div>
+        <div class="word">you</div>
+        <div class="word">mean</div>
+        <div class="word">how</div>
+        <div class="word">old</div>
+        <div class="word">are</div>
+        <div class="word">you</div>
+    </div>
+</body>
+</html>
