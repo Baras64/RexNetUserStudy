@@ -7,29 +7,34 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 200px;
         }
+
         .analysis, .comparison, .highlight {
             margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
         }
         .audio-inline {
             display: inline-block;
             width: 100px;
+            height: 50px;
             vertical-align: middle;
+            margin-left: 10px;
         }
         .highlighted-text {
             display: flex;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 50px;
+            text-align: center;
+            margin-left: 100px;
         }
         .word {
             margin-right: 5px;
             position: relative;
             display: inline-block;
         }
-        .word::after {
-            content: "•";
-            display: block;
+        .dot {
             font-size: 20px;
             line-height: 0;
             position: absolute;
@@ -40,51 +45,73 @@
     </style>
 </head>
 <body>
-    <p class="analysis">
+    <div class="analysis">
         <p>The model has predicted the clip as <strong>Angry</strong></p>
         <audio class="audio-inline" controls></audio>
-    </p>
+    </div>
     
-    <p class="comparison">
-        <p>It has compared it with the following audio:</p>
+    <div class="comparison">
+        <p>It has compared it with the following audio </p>
         <span>
-            <select>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
-                <option>Option 4</option>
-                <option>Option 5</option>
+            <select style="margin-left: 10px;">
+                <option>Happy</option>
+                <option>Sad</option>
+                <option>Angry</option>
+                <option>Surprise</option>
             </select>
             <audio class="audio-inline" controls></audio>
         </span>
-    </p>
+    </div>
     
     <div class="details">
         <p>The voice has:</p>
         <ul>
-            <li>Higher loudness</li>
-            <li>Lower pitch range</li>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> loudness</span></li>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> average pitch</span></li>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> pitch range</span></li>
+            <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> speaker rate</span></li>
+            <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> pauses</span></li>
         </ul>
     </div>
     
-    <div class="highlight">
-        <p>During the highlighted moment below for:</p>
-        <select>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
+    <span class="highlight">
+        <p>During the highlighted moment below for </p>
+        <select style="height: 20px; margin-left: 10px;" id="highlightSelect">
+            <option value="loudness">Loudness</option>
+            <option value="averagePitch">Average Pitch</option>
+            <option value="pitchRange">Pitch Range</option>
         </select>
-    </div>
+    </span>
     
-    <div class="highlighted-text">
-        <div class="word">I</div>
-        <div class="word">thought</div>
-        <div class="word">you</div>
-        <div class="word">mean</div>
-        <div class="word">how</div>
-        <div class="word">old</div>
-        <div class="word">are</div>
-        <div class="word">you</div>
+    <div class="highlighted-text" id="highlightedText">
+        <div class="word">I<div class="dot">•</div></div>
+        <div class="word">thought<div class="dot">•</div></div>
+        <div class="word">you<div class="dot">•</div></div>
+        <div class="word">mean<div class="dot">•</div></div>
+        <div class="word">how<div class="dot">•</div></div>
+        <div class="word">old<div class="dot">•</div></div>
+        <div class="word">are<div class="dot">•</div></div>
+        <div class="word">you<div class="dot">•</div></div>
     </div>
+
+    <script>
+        const colors = {
+            loudness: ['#6902ad', '#8248a8', '#e0d8e6', '#8423c4', '#8423c4', '#c670ff', '#8423c4', '#8423c4'],
+            averagePitch: ['#ff0000', '#ff4000', '#ff8000', '#ffbf00', '#ffff00', '#bfff00', '#80ff00', '#40ff00'],
+            pitchRange: ['#0000ff', '#0040ff', '#0080ff', '#00bfff', '#00ffff', '#00bfff', '#0080ff', '#0040ff']
+        };
+
+        document.getElementById('highlightSelect').addEventListener('change', function() {
+            const selectedOption = this.value;
+            const colorArray = colors[selectedOption];
+            const words = document.querySelectorAll('.highlighted-text .word .dot');
+
+            words.forEach((dot, index) => {
+                dot.style.color = colorArray[index % colorArray.length];
+            });
+        });
+
+        document.getElementById('highlightSelect').dispatchEvent(new Event('change'));
+    </script>
 </body>
 </html>

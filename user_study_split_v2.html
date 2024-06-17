@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .split {
+            width: 45%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .vertical-line {
+            border-left: 2px solid black;
+            height: 100vh;
+            margin: 0 10px;
+        }
+        .analysis, .comparison, .highlight {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .audio-inline {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .highlighted-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            text-align: center;
+            margin-left: 100px;
+            margin-bottom: 50px;
+            font-size: larger;
+        }
+        .word {
+            margin-right: 5px;
+            position: relative;
+            display: inline-block;
+        }
+        .dot {
+            font-size: 20px;
+            line-height: 0;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .split-heading {
+            padding-top: 200px;
+            color: #3498db;
+        }
+        .content-highlight {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="split">
+            <h1 class="split-heading">Target Audio</h1>
+
+            <div class="content-highlight">
+                <div class="highlighted-text" id="highlightedText1">
+                    <div class="word">I<div class="dot">•</div></div>
+                    <div class="word">thought<div class="dot">•</div></div>
+                    <div class="word">you<div class="dot">•</div></div>
+                    <div class="word">meant<div class="dot">•</div></div>
+                    <div class="word">how<div class="dot">•</div></div>
+                    <div class="word">old<div class="dot">•</div></div>
+                    <div class="word">are<div class="dot">•</div></div>
+                    <div class="word">you<div class="dot">•</div></div>
+                </div>
+                <audio class="audio-inline" controls></audio>
+            </div>
+
+
+            <div class="analysis">
+                <p>The model has predicted the clip as <strong>Angry</strong></p>
+            </div>
+            
+            <div class="details-ul1">
+                <p>The voice has:</p>
+                <ul class="details">
+                    <li id="loudness"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> loudness</span></li>
+                    <li id="averagePitch"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> average pitch</span></li>
+                    <li id="pitchRange"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> pitch range</span></li>
+                    <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> speaker rate</span></li>
+                    <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> pauses</span></li>
+                </ul>
+            </div>
+            
+
+        </div>
+        
+        <div class="vertical-line"></div>
+        
+        <div class="split">
+            <h1 class="split-heading">Counterfactual Audio</h1>
+
+            <div class="content-highlight">
+                <div class="highlighted-text" id="highlightedText2">
+                    <div class="word">I<div class="dot">•</div></div>
+                    <div class="word">thought<div class="dot">•</div></div>
+                    <div class="word">you<div class="dot">•</div></div>
+                    <div class="word">meant<div class="dot">•</div></div>
+                    <div class="word">how<div class="dot">•</div></div>
+                    <div class="word">old<div class="dot">•</div></div>
+                    <div class="word">are<div class="dot">•</div></div>
+                    <div class="word">you<div class="dot">•</div></div>
+                </div>
+                <audio class="audio-inline" controls></audio>
+            </div>
+
+
+            <div class="analysis">
+                <p>The model has compared it with <strong>Happy</strong></p>
+            </div>
+
+            <div class="details-ul2">
+                <p>The voice has:</p>
+                <ul>
+                    <li id="loudness"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> loudness</span></li>
+                    <li id="averagePitch"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> average pitch</span></li>
+                    <li id="pitchRange"><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> pitch range</span></li>
+                    <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> speaker rate</span></li>
+                    <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> pauses</span></li>
+                </ul>
+            </div>            
+
+        </div>
+    </div>
+
+    <script>
+        const colors1 = {
+            loudness: ['#6902ad', '#8248a8', '#e0d8e6', '#8423c4', '#8423c4', '#c670ff', '#8423c4', '#8423c4'],
+            averagePitch: ['#ff0000', '#ff4000', '#ff8000', '#ffbf00', '#ffff00', '#bfff00', '#80ff00', '#40ff00'],
+            pitchRange: ['#0000ff', '#0040ff', '#0080ff', '#00bfff', '#00ffff', '#00bfff', '#0080ff', '#0040ff']
+        };
+
+        const colors2 = {
+            loudness: ['#ff69b4', '#ffb6c1', '#ff1493', '#db7093', '#c71585', '#800080', '#4b0082', '#8b008b'],
+            averagePitch: ['#7fff00', '#7cfc00', '#32cd32', '#228b22', '#006400', '#66cdaa', '#20b2aa', '#008080'],
+            pitchRange: ['#ff4500', '#ff6347', '#ff8c00', '#ffa07a', '#ff7f50', '#cd5c5c', '#8b0000', '#b22222']
+        };
+
+        function addHoverAbility(id, textId, colors) {
+            const cues = document.querySelectorAll(`.details-ul${id} li`);
+            const words = document.querySelectorAll(`#${textId} .word .dot`);
+
+            cues.forEach((cue, index) => {
+
+                cue.addEventListener('mouseover', function() {
+                    cue_id = cue.getAttribute('id')
+                    cue.style.textDecoration = 'underline';
+                    cue.style.cursor = 'pointer';
+                    words.forEach((dot, index) => {
+                        dot.style.color = colors[cue_id][index % colors[cue_id].length];
+                    });
+                });
+                cue.addEventListener('mouseout', function() {
+                    cue.style.textDecoration = 'none';
+                    cue.style.cursor = 'default';
+                });
+
+            });
+        }
+
+        addHoverAbility(1, 'highlightedText1', colors1);
+        addHoverAbility(2, 'highlightedText2', colors2);
+    </script>
+</body>
+</html>

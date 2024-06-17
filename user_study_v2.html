@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 200px;
+        }
+
+        .analysis, .comparison, .highlight {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .audio-inline {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        .highlighted-text {
+            display: flex;
+            flex-wrap: wrap;
+            /* margin-top: 50px; */
+            text-align: center;
+            margin-left: 100px;
+        }
+        .word {
+            margin-right: 5px;
+            position: relative;
+            display: inline-block;
+        }
+        .dot {
+            font-size: 20px;
+            line-height: 0;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .content-highlight {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+
+            /* display: flex; */
+            /* flex-wrap: wrap; */
+            justify-content: center;
+            gap: 1px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="analysis">
+        <p>The model has predicted the clip as <strong>Angry</strong></p>
+        <audio class="audio-inline" controls></audio>
+    </div>
+    
+    <div class="comparison">
+        <p>It has compared it with the following audio </p>
+        <span>
+            <select style="margin-left: 10px;">
+                <option>Happy</option>
+                <option>Sad</option>
+                <option>Angry</option>
+                <option>Surprise</option>
+            </select>
+            <audio class="audio-inline" controls></audio>
+        </span>
+    </div>
+    
+    <div class="details">
+        <p>The voice has:</p>
+        <ul>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> loudness</span></li>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> average pitch</span></li>
+            <li><span style="font-size:19px;"><span style="color:#c0392b;">Higher</span> pitch range</span></li>
+            <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> speaker rate</span></li>
+            <li><span style="font-size:19px;"><span style="color:#3498db;">Lower</span> pauses</span></li>
+        </ul>
+    </div>
+    
+    <span class="highlight">
+        <p>During the highlighted moments below </p>
+    </span>
+
+    <div class="content-highlight">
+        <p>Loudness</p>
+        <div>
+            <div class="highlighted-text" id="highlightedText">
+                <div class="word">I<div class="dot">•</div></div>
+                <div class="word">thought<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+                <div class="word">mean<div class="dot">•</div></div>
+                <div class="word">how<div class="dot">•</div></div>
+                <div class="word">old<div class="dot">•</div></div>
+                <div class="word">are<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-highlight">
+        <p>Pitch Mean</p>
+        <div>
+            <div class="highlighted-text" id="highlightedText">
+                <div class="word">I<div class="dot">•</div></div>
+                <div class="word">thought<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+                <div class="word">mean<div class="dot">•</div></div>
+                <div class="word">how<div class="dot">•</div></div>
+                <div class="word">old<div class="dot">•</div></div>
+                <div class="word">are<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-highlight">
+        <p>Pitch Range</p>
+        <div>
+            <div class="highlighted-text" id="highlightedText">
+                <div class="word">I<div class="dot">•</div></div>
+                <div class="word">thought<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+                <div class="word">mean<div class="dot">•</div></div>
+                <div class="word">how<div class="dot">•</div></div>
+                <div class="word">old<div class="dot">•</div></div>
+                <div class="word">are<div class="dot">•</div></div>
+                <div class="word">you<div class="dot">•</div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const colors = {
+            loudness: ['#6902ad', '#8248a8', '#e0d8e6', '#8423c4', '#8423c4', '#c670ff', '#8423c4', '#8423c4'],
+            averagePitch: ['#ff0000', '#ff4000', '#ff8000', '#ffbf00', '#ffff00', '#bfff00', '#80ff00', '#40ff00'],
+            pitchRange: ['#0000ff', '#0040ff', '#0080ff', '#00bfff', '#00ffff', '#00bfff', '#0080ff', '#0040ff']
+        };
+
+        function addColors(){
+
+            
+            const cue_sections = document.querySelectorAll('.content-highlight');
+            console.log(cue_sections)
+
+            cue_sections.forEach((section, index) => {
+                const cue_text = section.children[0].innerText;
+                if(cue_text === 'Loudness'){
+                    var colorArray = colors.loudness;
+                } else if(cue_text === 'Pitch Mean'){
+                    var colorArray = colors.averagePitch;
+                } else{
+                    var colorArray = colors.pitchRange;
+                }
+
+                const words = section.children[1].children[0].children;
+                console.log(words)
+
+                Array.from(words).forEach((dot, index) => {
+                    dot.style.color = colorArray[index % colorArray.length];
+                });
+            });
+        }
+
+        addColors();
+
+        // document.getElementById('highlightSelect').addEventListener('change', function() {
+        //     const selectedOption = this.value;
+        //     const colorArray = colors[selectedOption];
+        //     const words = document.querySelectorAll('.highlighted-text .word .dot');
+
+        //     words.forEach((dot, index) => {
+        //         dot.style.color = colorArray[index % colorArray.length];
+        //     });
+        // });
+
+        // document.getElementById('highlightSelect').dispatchEvent(new Event('change'));
+    </script>
+</body>
+</html>
