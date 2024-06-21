@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .split {
+            width: 45%;
+            /* padding: 10px; */
+            box-sizing: border-box;
+        }
+        .vertical-line {
+            border-left: 2px solid black;
+            height: 100vh;
+            margin: 0 10px;
+        }
+        .analysis, .comparison, .highlight {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .audio-inline {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .highlighted-text {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 50px;
+            text-align: center;
+            margin-left: 100px;
+            margin-bottom: 50px;
+            font-size: larger;
+        }
+        .word {
+            margin-right: 5px;
+            position: relative;
+            display: inline-block;
+        }
+        .dot {
+            font-size: 20px;
+            line-height: 0;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .split-heading {
+            padding-top: 200px;
+            color: #3498db;
+        }
+        .content-highlight {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        table {
+            white-space: nowrap;
+        }
+        td {
+            padding: 0 5px;
+        }
+        table {
+            border-spacing: 0px 15px;
+            /* text-align: center; */
+        }
+        .bullet-point::before {
+            content: '•';
+            position: absolute;
+            transform: translate(-24%, -24%);
+            font-size: 48px;
+            color: black;
+            filter: blur(1px);
+            z-index: -1;
+            opacity: 0.5;
+            color: #8423c4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="split">
+            <h1 class="split-heading">Target Audio</h1>
+            
+            <div class="content-highlight">
+                <p>
+                    <i>"I thought you meant how old are you"</i>
+                </p>
+                <audio class="audio-inline" controls></audio>
+            </div>
+           
+            <div class="analysis">
+                <p>The model has predicted the clip as <strong><u>Neutral</u></strong></p>
+            </div>
+
+            <div class="cue-table-1">
+                <p>The voice has:</p>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>I</td>
+                        <td></td>
+                        <td>thought</td>
+                        <td></td>
+                        <td>you</td>
+                        <td></td>
+                        <td>meant</td>
+                        <td></td>
+                        <td>how</td>
+                        <td></td>
+                        <td>old</td>
+                        <td></td>
+                        <td>are</td>
+                        <td></td>
+                        <td>you</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Loudness</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Average Pitch</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-up"></i></td>
+                        <td><span style="color: #3498db;">High</span> Pitch Range</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa-solid fa-equals"></i></td>
+                        <td><span style="color: gray;">Medium</span> Speed</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Pauses</td>
+                        <td></td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>I</td>
+                        <td></td>
+                        <td>thought</td>
+                        <td></td>
+                        <td>you</td>
+                        <td></td>
+                        <td>meant</td>
+                        <td></td>
+                        <td>how</td>
+                        <td></td>
+                        <td>old</td>
+                        <td></td>
+                        <td>are</td>
+                        <td></td>
+                        <td>you</td>
+                    </tr>
+                </table>
+            </div>
+            
+
+        </div>
+        
+        <div class="vertical-line"></div>
+
+        <div class="split" style="padding-left: 0px;">
+            <h1 class="split-heading">Counterfactual Audio</h1>
+            
+            <div class="content-highlight">
+                <p>
+                    <i>"I thought you meant how old are you"</i>
+                </p>
+                <audio class="audio-inline" controls></audio>
+            </div>
+           
+            <div class="analysis">
+                <p>The model has predicted the clip as <strong><u>Surprise</u></strong></p>
+            </div>
+
+            <div class="cue-table-2">
+                <p>The voice has:</p>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>I</td>
+                        <td></td>
+                        <td>thought</td>
+                        <td></td>
+                        <td>you</td>
+                        <td></td>
+                        <td>meant</td>
+                        <td></td>
+                        <td>how</td>
+                        <td></td>
+                        <td>old</td>
+                        <td></td>
+                        <td>are</td>
+                        <td></td>
+                        <td>you</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Loudness</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Average Pitch</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-up"></i></td>
+                        <td><span style="color: #3498db;">High</span> Pitch Range</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa-solid fa-equals"></i></td>
+                        <td><span style="color: gray;">Medium</span> Speed</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-arrow-down"></i></td>
+                        <td><span style="color: #c0392b;">Low</span> Pauses</td>
+                        <td></td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                        <td></td>
+                        <td>•</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>I</td>
+                        <td></td>
+                        <td>thought</td>
+                        <td></td>
+                        <td>you</td>
+                        <td></td>
+                        <td>meant</td>
+                        <td></td>
+                        <td>how</td>
+                        <td></td>
+                        <td>old</td>
+                        <td></td>
+                        <td>are</td>
+                        <td></td>
+                        <td>you</td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script>
+    table_1 = document.querySelector('.cue-table-1');
+    table_2 = document.querySelector('.cue-table-2');
+
+    let table_1_trs = table_1.querySelectorAll('table tr')
+    let table_2_trs = table_2.querySelectorAll('table tr')
+
+    const idx2cue = {
+        0: 'loudness',
+        1: 'averagePitch',
+        2: 'pitchRange',
+        3: 'speed',
+        4: 'pauses'
+    }
+
+    const dot_colors1 = {
+        loudness: ['#460C83', '#fff', '#3F007D', '#fff', '#C6C7E1', '#fff', '#7566AF', '#fff', '#7B72B4', '#fff', '#582F93', '#fff', '#5C3797', '#fff', '#FCFBFD'],
+        averagePitch: ["#A2A0CB", "#fff", "#3F007D", "#fff", "#DADAEA", "#fff", "#D3D3E8", "#fff", "#4A1587", "#fff", "#8E8CC1", "#fff", "#F7F6FA", "#fff", "#FCFBFD"],
+        pitchRange: ["#A2A0CB", "#fff", "#3F007D", "#fff", "#DADAEA", "#fff", "#D3D3E8", "#fff", "#4A1587", "#fff", "#8E8CC1", "#fff", "#F7F6FA", "#fff", "#FCFBFD"],
+    }
+
+    const dot_colors2 = {
+        loudness: ["#7E79B8", "#fff", "#64479E", "#fff", "#9490C3", "#fff", "#9C98C7", "#fff", "#3F007D", "#fff", "#51218C", "#fff", "#FCFBFD", "#fff", "#A2A0CB"],
+        averagePitch: ["#6E5AA8", "#fff", "#6C55A5", "#fff", "#FCFBFD", "#fff", "#E6E5F1", "#fff", "#9B97C6", "#fff", "#460C83", "#fff", "#D6D6E9", "#fff", "#3F007D"],
+        pitchRange: ["#6E5AA8", "#fff", "#6C55A5", "#fff", "#FCFBFD", "#fff", "#E6E5F1", "#fff", "#9B97C6", "#fff", "#460C83", "#fff", "#D6D6E9", "#fff", "#3F007D"],
+    }
+
+        
+    table_1_trs.forEach((tr, index) => {
+        if(index > 0 && index < table_1_trs.length - 1) {
+            Array.from(tr.children).forEach((td, td_idx) => {
+                if(td_idx > 2){
+                    if(td.innerText === '•'){
+                        td.classList.add('bullet-point')
+                        
+                    }
+                    td.style.textAlign = 'center';
+                    let dotColor = dot_colors1[idx2cue[index - 1]][td_idx - 3]
+                    td.style.fontSize = '25px'
+                    td.style.color = dotColor;
+                }
+            })
+        }
+    })
+    
+    table_2_trs.forEach((tr, index) => {
+        if(index > 0 && index < table_2_trs.length - 1) {
+            Array.from(tr.children).forEach((td, td_idx) => {
+                if(td_idx > 2){
+                    if(td.innerText === '•'){
+                        td.classList.add('bullet-point')
+                    }
+                    td.style.textAlign = 'center';
+                    let dotColor = dot_colors2[idx2cue[index - 1]][td_idx - 3]
+                    td.style.fontSize = '25px'
+                    td.style.color = dotColor;
+                }
+            })
+        }
+    })
+
+    </script>
+</html>

@@ -80,25 +80,36 @@
             <option value="loudness">Loudness</option>
             <option value="averagePitch">Average Pitch</option>
             <option value="pitchRange">Pitch Range</option>
+            <option value="speed">Speaker Rate</option>
+            <option value="pauses">Pauses</option>
         </select>
     </span>
     
     <div class="highlighted-text" id="highlightedText">
         <div class="word">I<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">thought<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">you<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">mean<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">how<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">old<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">are<div class="dot">•</div></div>
+        <div class="word"><div class="dot">•</div></div>
         <div class="word">you<div class="dot">•</div></div>
     </div>
 
     <script>
         const colors = {
-            loudness: ['#6902ad', '#8248a8', '#e0d8e6', '#8423c4', '#8423c4', '#c670ff', '#8423c4', '#8423c4'],
-            averagePitch: ['#ff0000', '#ff4000', '#ff8000', '#ffbf00', '#ffff00', '#bfff00', '#80ff00', '#40ff00'],
-            pitchRange: ['#0000ff', '#0040ff', '#0080ff', '#00bfff', '#00ffff', '#00bfff', '#0080ff', '#0040ff']
+            loudness: ['#6902ad', '#fff', '#8248a8', '#fff', '#e0d8e6', '#fff', '#8423c4', '#fff', '#8423c4', '#fff', '#c670ff', '#fff', '#8423c4', '#fff', '#8423c4'],
+            averagePitch: ['#ff0000', '#fff', '#ff4000', '#fff', '#ff8000', '#fff', '#ffbf00', '#fff', '#ffff00', '#fff', '#bfff00', '#fff', '#80ff00', '#fff', '#40ff00'],
+            pitchRange: ['#0000ff', '#fff', '#0040ff', '#fff', '#0080ff', '#fff', '#00bfff', '#fff', '#00ffff', '#fff', '#00bfff', '#fff', '#0080ff', '#fff', '#0040ff'],
+            speed: ['#6902ad', '#fff', '#8248a8', '#fff', '#e0d8e6', '#fff', '#8423c4', '#fff', '#8423c4', '#fff', '#c670ff', '#fff', '#8423c4', '#fff', '#8423c4'],
+            pauses: ['#fff', '#8248a8', '#fff', '#e0d8e6', '#fff', '#8423c4', '#fff', '#8423c4', '#fff', '#c670ff', '#fff', '#8423c4', '#fff', '#8423c4', '#fff'],
         };
 
         document.getElementById('highlightSelect').addEventListener('change', function() {
